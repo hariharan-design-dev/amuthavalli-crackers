@@ -67,7 +67,7 @@ export async function submitGuestOrder(input: unknown): Promise<OrderActionResul
 
     const { data: dbProducts, error: productsError } = await supabase
       .from('products')
-      .select('id, name, selling_rate, is_available')
+      .select('id, name, tamil_name, selling_rate, is_available')
       .in('id', uniqueProductIds);
 
     if (productsError || !dbProducts) {
@@ -116,6 +116,7 @@ export async function submitGuestOrder(input: unknown): Promise<OrderActionResul
       return {
         product_id: item.productId,
         product_name: dbProduct.name,
+        tamil_name: dbProduct.tamil_name ?? null,
         quantity: item.quantity,
         unit_price: unitPrice,
         total_price: lineTotal,
@@ -188,11 +189,13 @@ export async function submitGuestOrder(input: unknown): Promise<OrderActionResul
         },
         items: (orderData.items || []).map((item: {
           product_name: string;
+          tamil_name?: string | null;
           quantity: number;
           unit_price: number | string;
           total_price: number | string;
         }) => ({
           productName: item.product_name,
+          tamilName: item.tamil_name ?? null,
           quantity: item.quantity,
           unitPrice: Number(item.unit_price),
           totalPrice: Number(item.total_price),

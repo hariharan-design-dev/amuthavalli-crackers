@@ -322,8 +322,11 @@ export default function OrderSuccessPage() {
                         <td className="py-3 px-2 text-center text-neutral-500 font-medium">
                           {index + 1}
                         </td>
-                        <td className="py-3 px-3 font-semibold text-neutral-900">
-                          {item.productName}
+                        <td className="py-3 px-3">
+                          <div className="font-semibold text-neutral-900">{item.productName}</div>
+                          {item.tamilName && (
+                            <div className="text-xs text-neutral-500 font-medium mt-0.5">{item.tamilName}</div>
+                          )}
                         </td>
                         <td className="py-3 px-3 text-right font-mono text-neutral-700">
                           ₹{item.unitPrice.toFixed(2)}

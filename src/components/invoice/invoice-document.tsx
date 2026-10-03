@@ -192,8 +192,15 @@ export function InvoiceDocument({ invoice, isAdmin = false }: InvoiceDocumentPro
                     <td className="py-2 px-2 text-center text-neutral-700 border-r border-neutral-800 font-medium">
                       {idx + 1}
                     </td>
-                    <td className="py-2 px-3 text-neutral-900 font-semibold border-r border-neutral-800">
-                      {item.productName}
+                    <td className="py-2 px-3 border-r border-neutral-800">
+                      <div className="text-neutral-900 font-semibold">
+                        {item.productName}
+                      </div>
+                      {item.tamilName && (
+                        <div className="text-[11px] text-neutral-500 font-medium mt-0.5 font-['var(--font-noto-sans-tamil)']">
+                          {item.tamilName}
+                        </div>
+                      )}
                     </td>
                     <td className="py-2 px-3 text-center text-neutral-800 border-r border-neutral-800 font-medium">
                       {item.quantity}

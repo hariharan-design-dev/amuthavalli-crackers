@@ -116,9 +116,15 @@ export function formatWhatsAppOrderMessage(
   ];
 
   order.items.forEach((item, index) => {
-    lines.push(
-      `${index + 1} ${item.productName} ~ ₹${formatAmount(item.unitPrice)} x ${item.quantity} = ₹${formatAmount(item.totalPrice)}`
-    );
+    if (item.tamilName && item.tamilName.trim()) {
+      lines.push(
+        `${index + 1} ${item.productName}\n  ${item.tamilName.trim()} ~ ₹${formatAmount(item.unitPrice)} x ${item.quantity} = ₹${formatAmount(item.totalPrice)}`
+      );
+    } else {
+      lines.push(
+        `${index + 1} ${item.productName} ~ ₹${formatAmount(item.unitPrice)} x ${item.quantity} = ₹${formatAmount(item.totalPrice)}`
+      );
+    }
   });
 
   lines.push(``);

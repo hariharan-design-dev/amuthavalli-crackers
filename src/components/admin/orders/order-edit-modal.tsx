@@ -15,6 +15,7 @@ interface OrderEditModalProps {
 interface EditableItem {
   id: string;
   product_name: string;
+  tamil_name?: string | null;
   quantity: number;
   unit_price: number;
 }
@@ -36,6 +37,7 @@ export function OrderEditModal({
     (order.items ?? []).map((item: AdminOrderItem) => ({
       id: item.id,
       product_name: item.product_name,
+      tamil_name: item.tamil_name ?? null,
       quantity: item.quantity,
       unit_price: item.unit_price,
     }))
@@ -334,6 +336,11 @@ export function OrderEditModal({
                           <span className="font-bold text-neutral-800 block">
                             {item.product_name}
                           </span>
+                          {item.tamil_name && (
+                            <span className="text-[11px] text-neutral-500 font-medium block mt-0.5">
+                              {item.tamil_name}
+                            </span>
+                          )}
                         </td>
                         <td className="py-2.5 px-3 text-center">
                           <input

@@ -357,6 +357,7 @@ interface OrderItemRow {
   order_id: string;
   product_id: string;
   product_name: string;
+  tamil_name?: string | null;
   quantity: number;
   unit_price: number;
   total_price: number;
@@ -370,7 +371,7 @@ export async function getOrderItems(
   const supabase = createServiceRoleClient();
   const { data, error } = await supabase
     .from('order_items')
-    .select('id, order_id, product_id, product_name, quantity, unit_price, total_price')
+    .select('id, order_id, product_id, product_name, tamil_name, quantity, unit_price, total_price')
     .eq('order_id', orderId)
     .order('created_at', { ascending: true });
 
@@ -384,6 +385,7 @@ export async function getOrderItems(
     order_id: row.order_id,
     product_id: row.product_id,
     product_name: row.product_name,
+    tamil_name: row.tamil_name ?? null,
     quantity: row.quantity,
     unit_price: Number(row.unit_price),
     total_price: Number(row.total_price),
@@ -447,7 +449,7 @@ export async function updateAdminOrder(
     // 4. Fetch existing order items to verify exact matching line items
     const { data: existingItems, error: itemsFetchErr } = await supabase
       .from('order_items')
-      .select('id, order_id, product_id, product_name, quantity, unit_price, total_price')
+      .select('id, order_id, product_id, product_name, tamil_name, quantity, unit_price, total_price')
       .eq('order_id', orderId);
 
     if (itemsFetchErr || !existingItems) {

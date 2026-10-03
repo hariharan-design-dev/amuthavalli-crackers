@@ -6,6 +6,7 @@ import type { BusinessSettings } from '@/types/database';
 export interface InvoiceOrderItem {
   id: string;
   productName: string;
+  tamilName?: string | null;
   quantity: number;
   unitPrice: number;
   totalPrice: number;
@@ -66,7 +67,7 @@ export async function getInvoiceByToken(token: string): Promise<InvoiceData | nu
     const [itemsRes, businessRes] = await Promise.all([
       supabase
         .from('order_items')
-        .select('id, product_name, quantity, unit_price, total_price')
+        .select('id, product_name, tamil_name, quantity, unit_price, total_price')
         .eq('order_id', orderRow.id)
         .order('created_at', { ascending: true }),
       supabase
@@ -80,6 +81,7 @@ export async function getInvoiceByToken(token: string): Promise<InvoiceData | nu
     const items: InvoiceOrderItem[] = rawItems.map((item) => ({
       id: item.id,
       productName: item.product_name,
+      tamilName: item.tamil_name ?? null,
       quantity: item.quantity,
       unitPrice: Number(item.unit_price),
       totalPrice: Number(item.total_price),

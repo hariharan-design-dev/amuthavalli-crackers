@@ -25,6 +25,7 @@ export interface AdminOrderItem {
   order_id: string;
   product_id: string;
   product_name: string;
+  tamil_name: string | null;
   quantity: number;
   unit_price: number;
   total_price: number;

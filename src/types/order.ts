@@ -21,6 +21,7 @@ export type SafeOrderCustomer = {
 
 export type SafeOrderItem = {
   productName: string;
+  tamilName?: string | null;
   quantity: number;
   unitPrice: number;
   totalPrice: number;

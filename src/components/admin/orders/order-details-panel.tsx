@@ -300,6 +300,11 @@ export function OrderDetailsPanel({
                     <h5 className="font-bold text-neutral-900 truncate">
                       {item.product_name}
                     </h5>
+                    {item.tamil_name && (
+                      <p className="text-[11px] text-neutral-500 font-medium truncate mt-0.5">
+                        {item.tamil_name}
+                      </p>
+                    )}
                     <div className="text-[11px] text-neutral-500 flex items-center space-x-2 mt-0.5">
                       <span>
                         ₹{item.unit_price.toFixed(2)} × {item.quantity}

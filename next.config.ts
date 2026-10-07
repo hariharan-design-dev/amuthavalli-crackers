@@ -6,18 +6,24 @@ import type { NextConfig } from "next";
  * explicitly reviewed and added to `next.config.ts`. Do not use arbitrary external image
  * hosts or bypass next/image configuration with plain img tags.
  */
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || "https://iueuoswckamxcgigokwj.supabase.co";
-const supabaseHostname = new URL(supabaseUrl).hostname;
+
+// 1. Determine current environment's Supabase hostname
+const currentSupabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || "https://iueuoswckamxcgigokwj.supabase.co";
+const currentHostname = new URL(currentSupabaseUrl).hostname;
+
+// 2. Explicitly allow the known legacy/development hostname embedded in existing database absolute URLs
+const legacyHostname = "iueuoswckamxcgigokwj.supabase.co";
+
+// Deduplicate hostnames to avoid Next.js configuration errors
+const allowedHostnames = Array.from(new Set([currentHostname, legacyHostname]));
 
 const nextConfig: NextConfig = {
   images: {
-    remotePatterns: [
-      {
-        protocol: "https",
-        hostname: supabaseHostname,
-        pathname: "/storage/v1/object/public/**",
-      },
-    ],
+    remotePatterns: allowedHostnames.map(hostname => ({
+      protocol: "https",
+      hostname: hostname,
+      pathname: "/storage/v1/object/public/**",
+    })),
   },
 };
 

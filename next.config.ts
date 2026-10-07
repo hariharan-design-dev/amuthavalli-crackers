@@ -6,12 +6,15 @@ import type { NextConfig } from "next";
  * explicitly reviewed and added to `next.config.ts`. Do not use arbitrary external image
  * hosts or bypass next/image configuration with plain img tags.
  */
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || "https://iueuoswckamxcgigokwj.supabase.co";
+const supabaseHostname = new URL(supabaseUrl).hostname;
+
 const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "iueuoswckamxcgigokwj.supabase.co",
+        hostname: supabaseHostname,
         pathname: "/storage/v1/object/public/**",
       },
     ],

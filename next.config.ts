@@ -19,6 +19,7 @@ const allowedHostnames = Array.from(new Set([currentHostname, legacyHostname]));
 
 const nextConfig: NextConfig = {
   images: {
+    unoptimized: true,
     remotePatterns: allowedHostnames.map(hostname => ({
       protocol: "https",
       hostname: hostname,
